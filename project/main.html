@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор Химчистки Мебели</title>
+    <style>
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 10px; /* Уменьшение padding */
+            background-color: transparent; /* Прозрачный фон */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: background-color 0.3s; /* Плавный переход */
+        }
+        .header.scrolled {
+            background-color: #439fc4; /* Цвет фона при прокрутке */
+        }
+        .header .logo {
+            display: flex;
+            align-items: center;
+        }
+        .header .logo .current {
+            color: #fff;
+            font-weight: bold;
+            font-size: 20px;
+            justify-content: left;
+            margin-left: 10px;
+        }
+       
+        .header img {
+            width: 80px; /* Уменьшение ширины логотипа */
+        }
+        .header .nav {
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Уменьшение gap */
+            flex: 1;
+            justify-content: center; /* Центрирование навигации */
+        }
+        .header .nav .work {
+            color: #fff;
+            font-weight: bold;
+            font-size: 20px;
+            justify-content: right;
+            margin-right: 10px;
+        }
+       
+    
+        .header .nav a:hover {
+            background-color: #fff; /* Белый фон при наведении */
+            color: #3499cf; /* цвет текста при наведении */
+            border-radius: 5px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: url('фон\ кл.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 150vh;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 174, 255, 0.5);
+            z-index: 0;
+        }
+
+        .main-container {
+            width: 70%;
+            max-width: 1000px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 10px;
+            margin: 0 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .container {
+            width: 80%;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .item, .order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .item span, .order-item span {
+            font-size: 16px;
+        }
+
+        .add-button, .remove-button, #order-button {
+            background-color: rgb(30, 156, 235);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .add-button:hover, .remove-button:hover, #order-button:hover {
+            background-color: rgb(30, 156, 235);
+        }
+
+        input[type="number"], input[type="text"], input[type="date"], input[type="time"], select {
+            margin-left: 10px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        #order-button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        #total-price {
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .order-item .quantity-input {
+            margin-right: 20px;
+            width: 50px;
+        }
+
+        .order-item .remove-button {
+            margin-left: auto;
+        }
+
+        
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <img src="iconkaaa.png" alt="Logo">
+            <div class="current">
+                kovroluxe_service
+            </div>
+        </div>
+        <div class="nav">
+           
+            <!-- График работы -->
+            <div class="work">
+                График работы:<br>
+                9:00 - 21:00 Пн-Вс
+            </div>
+            
+           <!-- Ссылка на WhatsApp -->
+            <div class="whatsapp">
+                <a href="https://wa.me/77071762206" target="_blank" class="btn btn-whatsapp">
+                    <img src="whatsapp.png" alt="WhatsApp Logo" class="whatsapp-logo">
+                </a>
+            </div>
+
+            
+            <!-- Телефонные номера -->
+            <div class="phones">
+                <div class="phone phone-mobile">
+                    <a href="tel:+7 (707) 176 22 06" title="+7 (707) 176 22 06">+7 (707) 176 22 06</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main-container">
+        <div class="container">
+            <div class="item" data-name="Диван" data-price="5000">
+                <span>Диван</span>
+                <button class="add-button">+</button>
+            </div>
+            <div class="item" data-name="Ковер" data-price="3000">
+                <span>Ковер</span>
+                <button class="add-button">+</button>
+            </div>
+            <div class="item" data-name="Стул" data-price="1000">
+                <span>Стул</span>
+                <button class="add-button">+</button>
+            </div>
+            <div class="item" data-name="Кресло" data-price="2000">
+                <span>Кресло</span>
+                <button class="add-button">+</button>
+            </div>
+            <div class="item" data-name="Матрас" data-price="4000">
+                <span>Матрас</span>
+                <button class="add-button">+</button>
+            </div>
+        </div>
+        <div class="container" id="order-container">
+            <!-- Здесь будут добавляться выбранные элементы -->
+        </div>
+        <div class="container">
+            <p>Стоимость: <span id="total-price">0</span> тнг.</p>
+        </div>
+    </div>
+
+
+    <script>
+          window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        document.querySelectorAll('.add-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const item = button.parentElement;
+                const itemName = item.getAttribute('data-name');
+                const itemPrice = item.getAttribute('data-price');
+
+                const orderContainer = document.getElementById('order-container');
+                let orderItem = null;
+
+                // Проверяем условие для увеличения количества только для предметов, кроме дивана и ковра
+                if (itemName !== 'Диван' && itemName !== 'Ковер') {
+                    orderItem = orderContainer.querySelector(`.order-item[data-name="${itemName}"]`);
+                }
+
+                if (orderItem) {
+                    const quantityInput = orderItem.querySelector('.quantity-input');
+                    quantityInput.value = parseInt(quantityInput.value) + 1;
+                } else {
+                    orderItem = document.createElement('div');
+                    orderItem.classList.add('order-item');
+                    orderItem.setAttribute('data-name', itemName);
+                    orderItem.setAttribute('data-price', itemPrice);
+                    orderItem.innerHTML = `
+                        <span>${itemName}</span>
+                        <input type="number" value="1" min="1" class="quantity-input">
+                        ${itemName === 'Диван' ? `<select>
+                            <option value="1-местный">1-местный</option>
+                            <option value="2-местный">2-местный</option>
+                        </select>` : ''}
+                        ${itemName === 'Ковер' ? `<input type="number" placeholder="Ширина" min="0">
+                        <input type="number" placeholder="Длина" min="0">
+                        <select>
+                            <option value="Синтетика">Синтетика</option>
+                            <option value="Шерсть">Шерсть</option>
+                        </select>` : ''}
+                        <button class="remove-button">x</button>
+                    `;
+
+                    orderContainer.appendChild(orderItem);
+
+                    orderItem.querySelector('.remove-button').addEventListener('click', () => {
+                        orderItem.remove();
+                        updateTotalPrice();
+                    });
+
+                    orderItem.querySelectorAll('input, select').forEach(input => {
+                        input.addEventListener('change', updateTotalPrice);
+                    });
+                }
+
+                updateTotalPrice();
+            });
+        });
+
+        function updateTotalPrice() {
+            let totalPrice = 0;
+            document.querySelectorAll('#order-container .order-item').forEach(item => {
+                const quantity = item.querySelector('.quantity-input').value;
+                const price = item.getAttribute('data-price');
+                totalPrice += quantity * price;
+            });
+            document.getElementById('total-price').innerText = totalPrice;
+        }
+
+        document.getElementById('order-button').addEventListener('click', () => {
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+
+            if (!name || !phone) {
+                alert('Пожалуйста, заполните все поля.');
+                return;
+            }
+
+            // Логика обработки заказа
+        });
+    </script>
+</body>
+</html>
